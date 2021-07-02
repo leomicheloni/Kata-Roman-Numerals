@@ -129,6 +129,46 @@ namespace Test
             
             Assert.Equal(expectedRomanNumber, ArabicToRoman(90));
         }
+        
+        [Fact]
+        public void ArabicToRoman_With_Number_100_Returns_C()
+        {
+            string expectedRomanNumber = "C";
+            
+            Assert.Equal(expectedRomanNumber, ArabicToRoman(100));
+        }
+        
+        [Fact]
+        public void ArabicToRoman_With_Number_111_Returns_CXI()
+        {
+            string expectedRomanNumber = "CXI";
+            
+            Assert.Equal(expectedRomanNumber, ArabicToRoman(111));
+        }
+        
+        [Fact]
+        public void ArabicToRoman_With_Number_500_Returns_D()
+        {
+            string expectedRomanNumber = "D";
+            
+            Assert.Equal(expectedRomanNumber, ArabicToRoman(500));
+        }
+        
+        [Fact]
+        public void ArabicToRoman_With_Number_999_Returns_CMXCIX()
+        {
+            string expectedRomanNumber = "CMXCIX";
+            
+            Assert.Equal(expectedRomanNumber, ArabicToRoman(999));
+        }
+        
+        [Fact]
+        public void ArabicToRoman_With_Number_3999_Returns_MMMCMXCIX()
+        {
+            string expectedRomanNumber = "MMMCMXCIX";
+            
+            Assert.Equal(expectedRomanNumber, ArabicToRoman(3999));
+        }
 
         private string ArabicToRoman(int number)
         {
@@ -140,9 +180,11 @@ namespace Test
             number -= tens;
             int units = number;
 
-            string unitsToRoman = ConvertUnits(units);
-            string tensToRoman = ConvertTens(tens);
-            return tensToRoman + unitsToRoman;
+            var unitsToRoman = ConvertUnits(units);
+            var tensToRoman = ConvertTens(tens);
+            var hundredsToRoman = ConvertHundreds(hundreds);
+            var thousandsToRoman = ConvertThousands(thousands);
+            return thousandsToRoman + hundredsToRoman + tensToRoman + unitsToRoman;
         }
 
         private static string ConvertUnits(int units)
@@ -177,6 +219,33 @@ namespace Test
             if (units == 9)
                 return "XC";
 
+            return string.Empty;
+        }
+        
+        private static string ConvertHundreds(int hundreds)
+        {
+            int units = hundreds / 100;
+            if (units >= 1 && units <= 3)
+                return new string('C', units);
+
+            if (units == 4)
+                return "CD";
+            
+            if (units >= 5 && units <= 8)
+                return $"D{new string('C', units - 5)}";
+            
+            if (units == 9)
+                return "CM";
+
+            return string.Empty;
+        }
+        
+        private static string ConvertThousands(int thousands)
+        {
+            int units = thousands / 1000;
+            if (units >= 1 && units <= 3)
+                return new string('M', units);
+            
             return string.Empty;
         }
     }

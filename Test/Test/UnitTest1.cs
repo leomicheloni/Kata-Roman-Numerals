@@ -180,59 +180,6 @@ namespace Test
             return thousandsToRoman + hundredsToRoman + tensToRoman + unitsToRoman;
         }
 
-        private static string ConvertUnits(int units)
-        {
-            if (units >= 1 && units <= 3)
-                return new string('I', units);
-
-            if (units == 4)
-                return "IV";
-            
-            if (units >= 5 && units <= 8)
-                return "V" + new string('I', units - 5);
-            
-            if (units == 9)
-                return "IX";
-
-            return string.Empty;
-        }
-
-        private static string ConvertTens(int tens)
-        {
-            int units = tens / 10;
-            if (units >= 1 && units <= 3)
-                return new string('X', units);
-
-            if (units == 4)
-                return "XL";
-            
-            if (units >= 5 && units <= 8)
-                return "X" + new string('L', units - 5);
-            
-            if (units == 9)
-                return "XC";
-
-            return string.Empty;
-        }
-        
-        private static string ConvertHundreds(int hundreds)
-        {
-            int units = hundreds / 100;
-            if (units >= 1 && units <= 3)
-                return new string('C', units);
-
-            if (units == 4)
-                return "CD";
-            
-            if (units >= 5 && units <= 8)
-                return "D" + new string('C', units - 5);
-            
-            if (units == 9)
-                return "CM";
-
-            return string.Empty;
-        }
-        
         private static string Convert(int digit, char[]romanLetters)
         {
             if (digit >= 1 && digit <= 3)
@@ -263,13 +210,5 @@ namespace Test
             return new [] {thousands/1000, hundreds/100, tens/10, units};
         }
 
-        private static string ConvertThousands(int thousands)
-        {
-            int units = thousands / 1000;
-            if (units >= 1 && units <= 3)
-                return new string('M', units);
-            
-            return string.Empty;
-        }
     }
 }

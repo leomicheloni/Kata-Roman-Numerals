@@ -172,18 +172,11 @@ namespace Test
 
         private string ArabicToRoman(int number)
         {
-            int thousands = (number / 1000) * 1000;
-            number -= thousands;
-            int hundreds = (number / 100) * 100;
-            number -= hundreds;
-            int tens = (number/10) * 10;
-            number -= tens;
-            int units = number;
-
-            var unitsToRoman = ConvertUnits(units);
-            var tensToRoman = ConvertTens(tens);
-            var hundredsToRoman = ConvertHundreds(hundreds);
-            var thousandsToRoman = ConvertThousands(thousands);
+            int[] digits = GetDigits(number);
+            var thousandsToRoman = Convert(digits[0], new []{'M'});
+            var hundredsToRoman = Convert(digits[1], new char[] {'C', 'D', 'M'});
+            var tensToRoman = Convert(digits[2], new char[] {'X', 'L', 'C'});
+            var unitsToRoman = Convert(digits[3], new char[] {'I', 'V', 'X'});
             return thousandsToRoman + hundredsToRoman + tensToRoman + unitsToRoman;
         }
 
@@ -240,6 +233,36 @@ namespace Test
             return string.Empty;
         }
         
+        private static string Convert(int digit, char[]romanLetters)
+        {
+            if (digit >= 1 && digit <= 3)
+                return new string(romanLetters[0], digit);
+
+            if (digit == 4)
+                return char.ToString(romanLetters[0]) + char.ToString(romanLetters[1]);
+            
+            if (digit >= 5 && digit <= 8)
+                return romanLetters[1] + new string(romanLetters[0], digit - 5);
+            
+            if (digit == 9)
+                return char.ToString(romanLetters[0]) + char.ToString(romanLetters[2]);
+
+            return string.Empty;
+        }
+
+        private static int[] GetDigits(int number)
+        {
+            int thousands = (number / 1000) * 1000;
+            number -= thousands;
+            int hundreds = (number / 100) * 100;
+            number -= hundreds;
+            int tens = (number/10) * 10;
+            number -= tens;
+            int units = number;
+
+            return new [] {thousands/1000, hundreds/100, tens/10, units};
+        }
+
         private static string ConvertThousands(int thousands)
         {
             int units = thousands / 1000;

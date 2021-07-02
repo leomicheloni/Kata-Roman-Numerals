@@ -150,6 +150,19 @@ namespace Test
                    GetRomanSymbolsForDigit(digits[3], new char[] {'I', 'V', 'X'});
         }
 
+        private static int[] SplitNumberIntoDigits(int number)
+        {
+            int thousands = (number / 1000) * 1000;
+            number -= thousands;
+            int hundreds = (number / 100) * 100;
+            number -= hundreds;
+            int tens = (number/10) * 10;
+            number -= tens;
+            int units = number;
+
+            return new [] {thousands/1000, hundreds/100, tens/10, units};
+        }
+
         private static string GetRomanSymbolsForDigit(int digit, char[]romanLetters)
         {
             if (digit >= 1 && digit <= 3)
@@ -166,19 +179,5 @@ namespace Test
 
             return string.Empty;
         }
-
-        private static int[] SplitNumberIntoDigits(int number)
-        {
-            int thousands = (number / 1000) * 1000;
-            number -= thousands;
-            int hundreds = (number / 100) * 100;
-            number -= hundreds;
-            int tens = (number/10) * 10;
-            number -= tens;
-            int units = number;
-
-            return new [] {thousands/1000, hundreds/100, tens/10, units};
-        }
-
     }
 }

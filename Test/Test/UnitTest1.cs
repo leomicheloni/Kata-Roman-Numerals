@@ -172,12 +172,11 @@ namespace Test
 
         private string ArabicToRoman(int number)
         {
-            int[] digits = GetDigits(number);
-            var thousandsToRoman = Convert(digits[0], new []{'M'});
-            var hundredsToRoman = Convert(digits[1], new char[] {'C', 'D', 'M'});
-            var tensToRoman = Convert(digits[2], new char[] {'X', 'L', 'C'});
-            var unitsToRoman = Convert(digits[3], new char[] {'I', 'V', 'X'});
-            return thousandsToRoman + hundredsToRoman + tensToRoman + unitsToRoman;
+            int[] digits = SplitNumberIntoDigits(number);
+            return Convert(digits[0], new []{'M'}) + 
+                   Convert(digits[1], new char[] {'C', 'D', 'M'}) + 
+                   Convert(digits[2], new char[] {'X', 'L', 'C'}) + 
+                   Convert(digits[3], new char[] {'I', 'V', 'X'});
         }
 
         private static string Convert(int digit, char[]romanLetters)
@@ -197,7 +196,7 @@ namespace Test
             return string.Empty;
         }
 
-        private static int[] GetDigits(int number)
+        private static int[] SplitNumberIntoDigits(int number)
         {
             int thousands = (number / 1000) * 1000;
             number -= thousands;

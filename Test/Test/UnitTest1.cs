@@ -196,7 +196,7 @@ namespace Test
                 return "IV";
             
             if (units >= 5 && units <= 8)
-                return $"V{new string('I', units - 5)}";
+                return "V" + new string('I', units - 5);
             
             if (units == 9)
                 return "IX";
@@ -214,7 +214,7 @@ namespace Test
                 return "XL";
             
             if (units >= 5 && units <= 8)
-                return $"X{new string('L', units - 5)}";
+                return "X" + new string('L', units - 5);
             
             if (units == 9)
                 return "XC";
@@ -232,7 +232,7 @@ namespace Test
                 return "CD";
             
             if (units >= 5 && units <= 8)
-                return $"D{new string('C', units - 5)}";
+                return "D" + new string('C', units - 5);
             
             if (units == 9)
                 return "CM";
